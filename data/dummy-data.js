@@ -17,7 +17,7 @@ export const CATEGORIES = [
 export const MEALS = [
   new Meal(
     'm1',
-    ['c1'j],
+    ['c1','c2'],
     'Spaghetti with Tomato Sauce',
     'affordable',
     'simple',

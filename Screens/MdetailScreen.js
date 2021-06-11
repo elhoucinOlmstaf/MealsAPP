@@ -1,10 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Meal from '../data/dummy-data'
 
-export default function MdetailScreen() {
+export default function MdetailScreen({route}) {
+  // console.warn(r);
+  console.log(route.params.itemid);
   return (
     <View>
-      <Text>Hello MdetailScreen</Text>
+      <Text>hhh</Text>
     </View>
   );
 }

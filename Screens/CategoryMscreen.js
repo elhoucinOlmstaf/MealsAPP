@@ -11,15 +11,18 @@ import {
 } from "react-native";
 import { CATEGORIES, MEALS } from "../data/dummy-data";
 
-export default function CategoryMscreen({ route }) {
+export default function CategoryMscreen({ route , navigation}) {
+  // getting the id . then filtering the data based on the id
   const Catid = route.params.catID;
-  let NativeTouch = TouchableOpacity;
   let newMealsData = MEALS.filter((meal) => meal.CategoryId.includes(Catid));
-  const image = { uri: "https://reactjs.org/logo-og.png" };
   // if android replace TouchacleOpacity with NativeTouch
+  let NativeTouch = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
     NativeTouch = TouchableNativeFeedback;
   }
+
+
+
   return (
     <View>
       <FlatList
@@ -27,9 +30,9 @@ export default function CategoryMscreen({ route }) {
         data={newMealsData}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
-          console.log(item.Duration);
+
           return (
-            <NativeTouch onPress={() => alert("mann!!")}>
+            <NativeTouch onPress={()=> navigation.navigate('MdetailScreen' , {itemid : item.id}) }>
               <View style={styles.MealItem}>
                 <View style={{ ...styles.MealRow, ...styles.mealHeader }}>
                   <ImageBackground
