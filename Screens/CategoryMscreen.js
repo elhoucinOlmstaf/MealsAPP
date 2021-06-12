@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import * as Font from "expo-font";
 import {
   View,
   Text,
@@ -8,59 +9,84 @@ import {
   ImageBackground,
   TouchableNativeFeedback,
   Platform,
+  ActivityIndicator,
 } from "react-native";
+import AppLoading from "expo-app-loading";
 import { CATEGORIES, MEALS } from "../data/dummy-data";
 
-export default function CategoryMscreen({ route , navigation}) {
+export default function CategoryMscreen({ route, navigation }) {
   // getting the id . then filtering the data based on the id
   const Catid = route.params.catID;
   let newMealsData = MEALS.filter((meal) => meal.CategoryId.includes(Catid));
+
   // if android replace TouchacleOpacity with NativeTouch
   let NativeTouch = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
     NativeTouch = TouchableNativeFeedback;
   }
 
-
-
+  const RenderData = (ItemData) => {
+    return (
+      <NativeTouch
+        onPress={() =>
+          navigation.navigate("MdetailScreen", { itemid: ItemData.item.id })
+        }
+      >
+        <View style={styles.MealItem}>
+          <View style={{ ...styles.MealRow, ...styles.mealHeader }}>
+            <ImageBackground
+              source={{ uri: ItemData.item.Duration }}
+              style={styles.bgImage}
+            >
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>{ItemData.item.Title}</Text>
+              </View>
+            </ImageBackground>
+          </View>
+          <View style={{ ...styles.MealRow, ...styles.mealDetail }}>
+            <Text style={styles.title_Details}>
+              {ItemData.item.complexity}m
+            </Text>
+            <Text style={styles.title_Details}>
+              {ItemData.item.steps.toUpperCase()}
+            </Text>
+            <Text style={styles.title_Details}>
+              {ItemData.item.ImageUrl.toUpperCase()}
+            </Text>
+          </View>
+        </View>
+      </NativeTouch>
+    );
+  };
+  //load fonts
+  const FetchFonts = () => {
+    return Font.loadAsync({
+      "OpenSans-Bold": require("../assets/fonts/OpenSans-Bold.ttf"),
+      "OpenSans-Regular": require("../assets/fonts/OpenSans-Regular.ttf"),
+    });
+  };
+  const [fontloaded, setfontloaded] = useState(false);
+  if (!fontloaded) {
+    return (
+      <AppLoading
+        startAsync={FetchFonts}
+        onFinish={() => setfontloaded(true)}
+        onError={console.warn}
+      />
+    );
+  }
   return (
     <View>
       <FlatList
         style={{ width: "100%" }}
         data={newMealsData}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-
-          return (
-            <NativeTouch onPress={()=> navigation.navigate('MdetailScreen' , {itemid : item.id}) }>
-              <View style={styles.MealItem}>
-                <View style={{ ...styles.MealRow, ...styles.mealHeader }}>
-                  <ImageBackground
-                    source={{ uri: item.Duration }}
-                    style={styles.bgImage}
-                  >
-                    <View style={styles.titleContainer}>
-                      <Text style={styles.title}>{item.Title}</Text>
-                    </View>
-                  </ImageBackground>
-                </View>
-                <View style={{ ...styles.MealRow, ...styles.mealDetail }}>
-                  <Text style={styles.title_Details}>{item.complexity}m</Text>
-                  <Text style={styles.title_Details}>
-                    {item.steps.toUpperCase()}
-                  </Text>
-                  <Text style={styles.title_Details}>
-                    {item.ImageUrl.toUpperCase()}
-                  </Text>
-                </View>
-              </View>
-            </NativeTouch>
-          );
-        }}
+        renderItem={RenderData}
       />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   bgImage: {
     width: "100%",
@@ -70,7 +96,7 @@ const styles = StyleSheet.create({
   MealItem: {
     width: "100%",
     height: 230,
-    backgroundColor: "tomato",
+    backgroundColor: "#fff",
   },
   MealRow: {
     flexDirection: "row",
@@ -85,7 +111,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   title: {
-    // fontFamily: 'open-sans-bold',
+    fontFamily: "OpenSans-Regular",
     fontSize: 20,
     color: "white",
     textAlign: "center",
@@ -99,6 +125,7 @@ const styles = StyleSheet.create({
   title_Details: {
     fontWeight: "bold",
     fontStyle: "italic",
+    fontFamily: "OpenSans-Bold",
   },
 });
 
