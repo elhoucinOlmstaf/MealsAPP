@@ -42,6 +42,7 @@ export default function CategoryScreen({ navigation }) {
   };
   return (
     <FlatList
+      style={{ marginTop: 30 }}
       data={CATEGORIES}
       renderItem={itemView}
       keyExtractor={(item, index) => item.id}
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 12,
     height: 100,
-    overflow: "hidden",
     borderRadius: 10,
   },
   Categories: {

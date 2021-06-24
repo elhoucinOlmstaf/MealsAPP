@@ -29,7 +29,10 @@ export default function CategoryMscreen({ route, navigation }) {
     return (
       <NativeTouch
         onPress={() =>
-          navigation.navigate("MdetailScreen", { itemid: ItemData.item.id })
+          navigation.navigate("MdetailScreen", {
+            itemid: ItemData.item.id,
+            title: ItemData.item.Title,
+          })
         }
       >
         <View style={styles.MealItem}>
