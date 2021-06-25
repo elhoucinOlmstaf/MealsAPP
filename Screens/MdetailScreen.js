@@ -8,10 +8,14 @@ export default function MdetailScreen({route}) {
   const SelectedMeal =  MEALS.find( meal => meal.id === route.params.itemid)
   console.log(SelectedMeal);
   return (
-    <View>
+    <View style={styles.container}>
       <Text>{SelectedMeal.Title}</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    flex: 1
+  }
+});

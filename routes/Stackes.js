@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { Text } from "react-native";
 
 // import screens
 import CategoryMscreen from "../Screens/CategoryMscreen";
@@ -15,7 +16,6 @@ import MFilterScreen from "../Screens/MFilterScreen";
 import CustomHeaderButton from "../components/HedaerButton";
 
 const Stack = createStackNavigator();
-const tab = createBottomTabNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const StackApp = () => {
   return (
@@ -45,7 +45,7 @@ const StackApp = () => {
       <Stack.Screen
         name="FavoriteScreen"
         component={FavoriteScreen}
-
+        options={{ title: "Meal Category " }}
       />
       <Stack.Screen name="MFilterScreen" component={MFilterScreen} />
     </Stack.Navigator>
@@ -53,6 +53,8 @@ const StackApp = () => {
 };
 
 function MyTabs() {
+  let ActiveColor = "white";
+  let UnActiveColor = "black";
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -60,15 +62,21 @@ function MyTabs() {
         activeColor="#f0edf6"
         shifting={true}
         inactiveColor="#3e2465"
-        barStyle={{ backgroundColor: "#ccc" }}
+        barStyle={{ backgroundColor: "blue" }}
       >
         <Tab.Screen
           name="StackApp"
           component={StackApp}
           options={{
-            tabBarLabel: "Meals",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="restaurant" color={color} size={size} />
+            tabBarLabel: (
+              <Text style={{ fontSize: 14, fontWeight: "bold" }}>Meals</Text>
+            ),
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="restaurant"
+                color={focused ? ActiveColor : UnActiveColor}
+                size={18}
+              />
             ),
           }}
         />
@@ -76,10 +84,16 @@ function MyTabs() {
           name="Notifications"
           component={FavoriteScreen}
           options={{
-            tabBarLabel: "Favorites",
-            tabBarColor: "red" ,
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="star" color={color} size={size} />
+            tabBarLabel: (
+              <Text style={{ fontSize: 14, fontWeight: "bold" }}>Favorite</Text>
+            ),
+            tabBarColor: "red",
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="star"
+                color={focused ? ActiveColor : UnActiveColor}
+                size={18}
+              />
             ),
           }}
         />
