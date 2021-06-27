@@ -1,17 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Header } from "react-native-elements";
+import {MyCustomLeftComponent , MyCustomCenterComponent} from "../components/CustomHeaderComponent";
+export default function FavoriteScreen({navigation}) {
 
-
-export default function FavoriteScreen() {
   return (
-    <Header
-      barStyle="dark-content"
-      centerComponent={{
-        text: "My favorites",
-        style: { color: "#fff", paddingTop: 15, fontSize: 18 },
-      }}
-    />
+    <Header>
+      <MyCustomLeftComponent />
+      <MyCustomCenterComponent/>
+    </Header>
   );
 }
 

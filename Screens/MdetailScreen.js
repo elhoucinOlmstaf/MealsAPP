@@ -1,12 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import {MEALS} from '../data/dummy-data'
+import { MEALS } from "../data/dummy-data";
 
-export default function MdetailScreen({route}) {
+export default function MdetailScreen({ route }) {
   // console.warn(r);
-  console.log(route.params.itemid);
-  const SelectedMeal =  MEALS.find( meal => meal.id === route.params.itemid)
-  console.log(SelectedMeal);
+  const SelectedMeal = MEALS.find((meal) => meal.id === route.params.itemid);
   return (
     <View style={styles.container}>
       <Text>{SelectedMeal.Title}</Text>
@@ -15,7 +13,7 @@ export default function MdetailScreen({route}) {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1
-  }
+  container: {
+    flex: 1,
+  },
 });

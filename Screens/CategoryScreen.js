@@ -17,6 +17,7 @@ export default function CategoryScreen({ navigation }) {
   }
   // itemView
   const itemView = (itemData) => {
+    console.log(itemData);
     return (
       <View style={styles.list}>
         <NativeTouch

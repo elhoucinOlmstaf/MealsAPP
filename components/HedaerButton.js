@@ -2,12 +2,24 @@ import React from "react";
 import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButton } from "react-navigation-header-buttons";
+import { useNavigation } from "@react-navigation/native";
+
 const CustomHeaderButton = (props) => {
+  const { dangerouslyGetState } = useNavigation();
+  const { index, routes } = dangerouslyGetState();
+  let color = "";
+  // checking current screen
+  if (routes[index].name === "CategoryScreen") {
+    color = "black";
+  } else {
+    color = "#fff";
+  }
   return (
     <HeaderButton
       {...props}
       IconComponent={Ionicons}
       iconSize={30}
+      color={color}
     />
   );
 };
