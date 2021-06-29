@@ -30,11 +30,7 @@ export default function CategoryScreen({ navigation }) {
           }
         >
           <View
-            style={{
-              ...styles.Categories,
-              ...{ backgroundColor: itemData.item.color },
-            }}
-          >
+            style={{...styles.Categories,...{ backgroundColor: itemData.item.color }}}>
             <Text style={styles.text}>{itemData.item.title}</Text>
           </View>
         </NativeTouch>
