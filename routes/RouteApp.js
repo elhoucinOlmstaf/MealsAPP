@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import HeaderBackButton from "../components/HeaderBackButton";
 
 // import screens
 import CategoryMscreen from "../Screens/CategoryMscreen";
@@ -68,10 +69,26 @@ const StackApp = ({ navigation }) => {
           ),
         }}
       />
-      <Stack.Screen name="MFilterScreen" component={MFilterScreen} />
     </Stack.Navigator>
   );
 };
+
+function FilterScreen({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Filter"
+        component={MFilterScreen}
+        options={{
+          headerStyle: { backgroundColor: "#81b0ff" },
+          headerLeft: () => (
+            <HeaderBackButton onGobakc={() => navigation.goBack()} />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function MyTabs() {
   let ActiveColor = "white";
@@ -126,7 +143,7 @@ function DrawerScreen() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="StackApp">
         <Drawer.Screen name="MyTabs" component={MyTabs} />
-        <Drawer.Screen name="MFilterScreen" component={MFilterScreen} />
+        <Drawer.Screen name="Filter Items" component={FilterScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
