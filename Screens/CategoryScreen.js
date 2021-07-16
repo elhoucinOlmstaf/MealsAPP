@@ -17,7 +17,6 @@ export default function CategoryScreen({ navigation }) {
   }
   // itemView
   const itemView = (itemData) => {
-    console.log(itemData);
     return (
       <View style={styles.list}>
         <NativeTouch
@@ -30,7 +29,11 @@ export default function CategoryScreen({ navigation }) {
           }
         >
           <View
-            style={{...styles.Categories,...{ backgroundColor: itemData.item.color }}}>
+            style={{
+              ...styles.Categories,
+              ...{ backgroundColor: itemData.item.color },
+            }}
+          >
             <Text style={styles.text}>{itemData.item.title}</Text>
           </View>
         </NativeTouch>

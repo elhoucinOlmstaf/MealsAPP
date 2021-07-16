@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,11 +7,22 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import { MEALS } from "../data/dummy-data";
 import { useFonts } from "expo-font";
+import { useSelector, useDispatch } from "react-redux";
+import { ToggleFavorite } from "../Redux/Actions/MealsActions";
 
-export default function MdetailScreen({ route }) {
-  const SelectedMeal = MEALS.find((meal) => meal.id === route.params.itemid);
+const MdetailScreen = ({ route, navigation }) => {
+  const NewMeals = useSelector((state) => state.meals.meals);
+  const SelectedMeal = NewMeals.find((meal) => meal.id === route.params.itemid);
+
+  const dispatch = useDispatch();
+  const ToggleHandler = useCallback(() => {
+    dispatch(ToggleFavorite(SelectedMeal.id));
+  }, [dispatch, SelectedMeal.id]);
+
+  useEffect(() => {
+    navigation.setParams({ ToggleFav: ToggleHandler });
+  }, [ToggleHandler]);
 
   let [fontsLoaded] = useFonts({
     "Inter-SemiBoldItalic":
@@ -29,7 +40,9 @@ export default function MdetailScreen({ route }) {
             onError={(error) => console.warn(error)}
           />
           <View style={styles.details}>
-            <Text style={styles.title_Details}>{SelectedMeal.complexity}m</Text>
+            <Text onPress={() => ToggleHandler()} style={styles.title_Details}>
+              {SelectedMeal.complexity}m
+            </Text>
             <Text style={styles.title_Details}>
               {SelectedMeal.steps.toUpperCase()}
             </Text>
@@ -80,7 +93,7 @@ export default function MdetailScreen({ route }) {
       </ScrollView>
     );
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -111,3 +124,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
+
+export default MdetailScreen;

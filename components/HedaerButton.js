@@ -9,16 +9,20 @@ const CustomHeaderButton = (props) => {
   const { index, routes } = dangerouslyGetState();
   let color = "";
   // checking current screen
-  if (routes[index].name === "CategoryScreen") {
+  if (
+    routes[index].name === "CategoryScreen" ||
+    routes[index].name === "MdetailScreen"
+  ) {
     color = "black";
   } else {
     color = "#fff";
   }
+
   return (
     <HeaderButton
       {...props}
       IconComponent={Ionicons}
-      iconSize={30}
+      iconSize={27}
       color={color}
     />
   );

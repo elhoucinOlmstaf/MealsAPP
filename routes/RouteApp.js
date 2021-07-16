@@ -19,7 +19,10 @@ import CustomHeaderButton from "../components/HedaerButton";
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-const StackApp = ({ navigation }) => {
+const StackApp = ({ navigation, route }) => {
+
+
+
   return (
     <Stack.Navigator initialRouteName="CategoryScreen">
       <Stack.Screen
@@ -52,7 +55,11 @@ const StackApp = ({ navigation }) => {
           title: route.params.title,
           headerRight: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-              <Item title="Favorites" iconName="ios-star" />
+              <Item
+                title="Favorites"
+                iconName="star"
+                onPress={() => ToggleHandler}
+              />
             </HeaderButtons>
           ),
         })}
